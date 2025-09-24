@@ -1,8 +1,6 @@
 package route
 
 import (
-	"net/http"
-
 	"github.com/Berchon/weather-cloud-run/internal/infra/configs"
 	"github.com/Berchon/weather-cloud-run/internal/infra/dependencies"
 	"github.com/go-chi/chi"
@@ -20,11 +18,8 @@ func registerRoutes(port string, router *chi.Mux, handlers *dependencies.Handler
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
-	router.Get("/status", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("OK"))
-	}))
-	// router.Get("/reload", getAddressByCep.Handle)
+	router.Get("/status", handlers.GetStatusHandler.Handle)
+	// router.Post("/reload", getAddressByCep.Handle)
 	router.Get("/temperature/{cep}", handlers.GetTemperatureByCepHandlerHandler.Handle)
 
 }

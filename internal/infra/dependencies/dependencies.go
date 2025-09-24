@@ -4,6 +4,7 @@ import "github.com/Berchon/weather-cloud-run/internal/infra/webapp/handler"
 
 type Handlers struct {
 	GetTemperatureByCepHandlerHandler handler.GetTemperatureByCepHandler
+	GetStatusHandler                  handler.GetStatusHandler
 }
 
 func BuildDependencies() *Handlers {
@@ -18,8 +19,10 @@ func BuildDependencies() *Handlers {
 
 	// --- Handlers ---
 	getTemperatureByCepHandler := handler.NewGetTemperatureByCepHandler()
+	getStatusHandler := handler.NewGetStatusHandler()
 
 	return &Handlers{
 		GetTemperatureByCepHandlerHandler: getTemperatureByCepHandler,
+		GetStatusHandler:                  getStatusHandler,
 	}
 }
