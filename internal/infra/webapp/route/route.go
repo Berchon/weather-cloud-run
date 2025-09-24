@@ -4,18 +4,19 @@ import (
 	"net/http"
 
 	"github.com/Berchon/weather-cloud-run/internal/infra/configs"
+	"github.com/Berchon/weather-cloud-run/internal/infra/dependencies"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
 
-func ConfigureApplicationRoutes() *chi.Mux {
+func ConfigureApplicationRoutes(handlers *dependencies.Handlers) *chi.Mux {
 	port := configs.GetWebServerPort()
 	router := chi.NewRouter()
-	registerRoutes(port, router)
+	registerRoutes(port, router, handlers)
 	return router
 }
 
-func registerRoutes(port string, router *chi.Mux) {
+func registerRoutes(port string, router *chi.Mux, handlers *dependencies.Handlers) {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
@@ -24,6 +25,6 @@ func registerRoutes(port string, router *chi.Mux) {
 		w.Write([]byte("OK"))
 	}))
 	// router.Get("/reload", getAddressByCep.Handle)
-	// router.Get("/temperature/{cep}", getAddressByCep.Handle)
+	router.Get("/temperature/{cep}", handlers.GetTemperatureByCepHandlerHandler.Handle)
 
 }

@@ -27,9 +27,9 @@ func (webApp *webApp) Start() {
 		panic(err)
 	}
 
-	_ = dependencies.BuildDependencies()
+	dependencies := dependencies.BuildDependencies()
 
-	router := route.ConfigureApplicationRoutes()
+	router := route.ConfigureApplicationRoutes(dependencies)
 
 	port := fmt.Sprintf(":%s", configs.GetWebServerPort())
 	http.ListenAndServe(port, router)
