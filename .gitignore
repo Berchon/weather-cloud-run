@@ -1,3 +1,6 @@
 .vscode
+/api/api.http
 /api/services.http
 .env
+Dockerfile
+docker-compose.yaml
