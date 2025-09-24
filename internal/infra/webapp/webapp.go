@@ -1,10 +1,13 @@
 package webapp
 
 import (
+	"fmt"
 	"log"
+	"net/http"
 
 	"github.com/Berchon/weather-cloud-run/internal/infra/configs"
 	"github.com/Berchon/weather-cloud-run/internal/infra/dependencies"
+	"github.com/Berchon/weather-cloud-run/internal/infra/route"
 )
 
 type WebApp interface {
@@ -26,4 +29,8 @@ func (webApp *webApp) Start() {
 
 	_ = dependencies.BuildDependencies()
 
+	router := route.ConfigureApplicationRoutes()
+
+	port := fmt.Sprintf(":%s", configs.GetWebServerPort())
+	http.ListenAndServe(port, router)
 }
