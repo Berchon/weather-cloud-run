@@ -44,3 +44,19 @@ stop: ## Stop docker containers
 
 clean: stop ## Stop docker containers, clean data and workspace
 	docker compose down -v --remove-orphans
+
+## ----- MOCKERY
+MOCKERY_VERSION := v2.53.2
+BIN := $(shell go env GOPATH)/bin/mockery
+
+.PHONY: install-mockery reinstall-mockery generate-mocks
+
+install-mockery: ## Install mockery at fixed version
+	go install github.com/vektra/mockery/v2@$(MOCKERY_VERSION)
+
+reinstall-mockery: ## Force reinstall mockery at fixed version
+	rm -f $(BIN)
+	go install github.com/vektra/mockery/v2@$(MOCKERY_VERSION)
+
+generate-mocks: ## Generate mocks using go:generate
+	go generate ./...
