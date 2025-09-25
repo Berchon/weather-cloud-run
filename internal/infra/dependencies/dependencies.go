@@ -1,10 +1,13 @@
 package dependencies
 
-import "github.com/Berchon/weather-cloud-run/internal/infra/webapp/handler"
+import (
+	"github.com/Berchon/weather-cloud-run/internal/business/usecase"
+	"github.com/Berchon/weather-cloud-run/internal/infra/webapp/handler"
+)
 
 type Handlers struct {
-	GetTemperatureByCepHandlerHandler handler.GetTemperatureByCepHandler
-	GetStatusHandler                  handler.GetStatusHandler
+	GetTemperatureByCepHandler handler.GetTemperatureByCepHandler
+	GetStatusHandler           handler.GetStatusHandler
 }
 
 func BuildDependencies() *Handlers {
@@ -15,14 +18,14 @@ func BuildDependencies() *Handlers {
 	// userService := service.NewUserService(userRepo)
 
 	// --- UseCases ---
-	// getUserUC := usecase.NewGetUserUsecase(userService)
+	getTemperatureByCepUsecase := usecase.NewGetTemperatureByCepUsecase()
 
 	// --- Handlers ---
-	getTemperatureByCepHandler := handler.NewGetTemperatureByCepHandler()
+	getTemperatureByCepHandler := handler.NewGetTemperatureByCepHandler(getTemperatureByCepUsecase)
 	getStatusHandler := handler.NewGetStatusHandler()
 
 	return &Handlers{
-		GetTemperatureByCepHandlerHandler: getTemperatureByCepHandler,
-		GetStatusHandler:                  getStatusHandler,
+		GetTemperatureByCepHandler: getTemperatureByCepHandler,
+		GetStatusHandler:           getStatusHandler,
 	}
 }

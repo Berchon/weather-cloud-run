@@ -32,5 +32,6 @@ func (webApp *webApp) Start() {
 	router := route.ConfigureApplicationRoutes(dependencies)
 
 	port := fmt.Sprintf(":%s", configs.GetWebServerPort())
+	log.Printf("Starting server on port %s\n", port)
 	http.ListenAndServe(port, router)
 }
