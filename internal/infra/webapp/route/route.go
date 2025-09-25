@@ -3,8 +3,8 @@ package route
 import (
 	"github.com/Berchon/weather-cloud-run/internal/infra/configs"
 	"github.com/Berchon/weather-cloud-run/internal/infra/dependencies"
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 func ConfigureApplicationRoutes(handlers *dependencies.Handlers) *chi.Mux {
@@ -20,6 +20,5 @@ func registerRoutes(port string, router *chi.Mux, handlers *dependencies.Handler
 
 	router.Get("/status", handlers.GetStatusHandler.Handle)
 	// router.Post("/reload", getAddressByCep.Handle)
-	router.Get("/temperature/{cep}", handlers.GetTemperatureByCepHandlerHandler.Handle)
-
+	router.Get("/temperature/{cep}", handlers.GetTemperatureByCepHandler.Handle)
 }
