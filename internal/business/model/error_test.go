@@ -23,7 +23,7 @@ func TestNewCustomError(t *testing.T) {
 
 func TestError(t *testing.T) {
 	t.Run("Should return a string to a CustomError", func(t *testing.T) {
-		want := "Erro 400: Bad Request"
+		want := "Bad Request"
 		got := model.NewCustomError(400, "Bad Request").Error()
 
 		assert.NotNil(t, got)

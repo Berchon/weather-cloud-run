@@ -1,8 +1,8 @@
 package route
 
 import (
-	"github.com/Berchon/weather-cloud-run/internal/infra/configs"
-	"github.com/Berchon/weather-cloud-run/internal/infra/dependencies"
+	"github.com/Berchon/weather-cloud-run/internal/infrastructure/configs"
+	"github.com/Berchon/weather-cloud-run/internal/infrastructure/dependencies"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -20,5 +20,5 @@ func registerRoutes(port string, router *chi.Mux, handlers *dependencies.Handler
 
 	router.Get("/status", handlers.GetStatusHandler.Handle)
 	// router.Post("/reload", getAddressByCep.Handle)
-	router.Get("/temperature/{cep}", handlers.GetTemperatureByCepHandler.Handle)
+	router.Get("/temperature/{zipCode}", handlers.GetTemperatureByZipCodeHandler.Handle)
 }

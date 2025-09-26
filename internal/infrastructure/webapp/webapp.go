@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Berchon/weather-cloud-run/internal/infra/configs"
-	"github.com/Berchon/weather-cloud-run/internal/infra/dependencies"
-	"github.com/Berchon/weather-cloud-run/internal/infra/webapp/route"
+	"github.com/Berchon/weather-cloud-run/internal/infrastructure/configs"
+	"github.com/Berchon/weather-cloud-run/internal/infrastructure/dependencies"
+	"github.com/Berchon/weather-cloud-run/internal/infrastructure/webapp/route"
 )
 
 type WebApp interface {
