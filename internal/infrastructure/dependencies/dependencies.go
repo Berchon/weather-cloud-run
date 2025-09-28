@@ -22,9 +22,10 @@ func BuildDependencies() *Handlers {
 
 	// --- Services ---
 	viaCepService := service.NewViaCepService(httpClient)
+	weatherService := service.NewWeatherService(httpClient)
 
 	// --- UseCases ---
-	getTemperatureByZipCodeUsecase := usecase.NewGetTemperatureByZipCodeUsecase(viaCepService)
+	getTemperatureByZipCodeUsecase := usecase.NewGetTemperatureByZipCodeUsecase(viaCepService, weatherService)
 
 	// --- Handlers ---
 	getTemperatureByZipCodeHandler := handler.NewGetTemperatureByZipCodeHandler(getTemperatureByZipCodeUsecase)

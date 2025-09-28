@@ -15,23 +15,23 @@ type MockGetTemperatureByZipCodeUsecase struct {
 }
 
 // GetTemperatureByZipCode provides a mock function with given fields: ctx, zipCode
-func (_m *MockGetTemperatureByZipCodeUsecase) GetTemperatureByZipCode(ctx context.Context, zipCode model.ZipCode) (*string, *model.CustomError) {
+func (_m *MockGetTemperatureByZipCodeUsecase) GetTemperatureByZipCode(ctx context.Context, zipCode model.ZipCode) (*map[string]float64, *model.CustomError) {
 	ret := _m.Called(ctx, zipCode)
 
 	if len(ret) == 0 {
 		panic("no return value specified for GetTemperatureByZipCode")
 	}
 
-	var r0 *string
+	var r0 *map[string]float64
 	var r1 *model.CustomError
-	if rf, ok := ret.Get(0).(func(context.Context, model.ZipCode) (*string, *model.CustomError)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, model.ZipCode) (*map[string]float64, *model.CustomError)); ok {
 		return rf(ctx, zipCode)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, model.ZipCode) *string); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, model.ZipCode) *map[string]float64); ok {
 		r0 = rf(ctx, zipCode)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*string)
+			r0 = ret.Get(0).(*map[string]float64)
 		}
 	}
 

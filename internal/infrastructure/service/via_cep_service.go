@@ -15,6 +15,21 @@ import (
 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/service/dto"
 )
 
+// import (
+// 	"context"
+// 	"encoding/json"
+// 	"fmt"
+// 	"io"
+// 	"net/http"
+// 	"time"
+
+// 	"github.com/Berchon/weather-cloud-run/internal/business/gateway"
+// 	"github.com/Berchon/weather-cloud-run/internal/business/model"
+// 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/configs"
+// 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/service/config"
+// 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/service/dto"
+// )
+
 type viaCepService struct {
 	endpoint *config.Endpoint
 	client   config.HTTPDoer
@@ -31,10 +46,19 @@ func NewViaCepService(client config.HTTPDoer) gateway.ViaCepService {
 }
 
 func (s *viaCepService) GetAddressByZipCode(ctx context.Context, zipCode model.ZipCode) (*string, *model.CustomError) {
-	url := fmt.Sprintf("%s%s", configs.GetViaCepBaseUrl(), configs.GetViaCepPath())
-	s.endpoint.SetUrl(url, zipCode)
+	path := fmt.Sprintf(configs.GetViaCepPath(), zipCode)
+	ep := s.endpoint.
+		SetBaseURL(configs.GetViaCepBaseUrl()).
+		SetPath(path)
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, s.endpoint.GetUrl(), nil)
+	url, err := ep.Build()
+	if err != nil {
+		fmt.Println("Error building endpoint:", err)
+		return nil, model.NewCustomError(http.StatusInternalServerError,
+			fmt.Sprintf("Error building endpoint: %v", err))
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, model.NewCustomError(http.StatusInternalServerError, fmt.Sprintf("error creating request: %v", err))
 	}
@@ -69,7 +93,7 @@ func (s *viaCepService) GetAddressByZipCode(ctx context.Context, zipCode model.Z
 	}
 
 	if viaCepDto.City == "" {
-		return nil, model.NewCustomError(http.StatusInternalServerError, "city field is empty in response")
+		return nil, model.NewCustomError(http.StatusInternalServerError, "city is empty in response")
 	}
 
 	return &viaCepDto.City, nil
