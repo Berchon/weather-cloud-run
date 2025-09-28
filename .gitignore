@@ -2,5 +2,6 @@
 /api/api.http
 /api/services.http
 .env
+coverage.out
 Dockerfile
 docker-compose.yaml

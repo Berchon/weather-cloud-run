@@ -1,0 +1,3 @@
+# Arquivos ignorados na cobertura de código
+**/mock/*
+cmd/webserver/main.go
