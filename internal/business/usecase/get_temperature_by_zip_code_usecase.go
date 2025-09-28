@@ -4,6 +4,7 @@ package usecase
 import (
 	"context"
 	"fmt"
+	"math"
 	"net/http"
 
 	"github.com/Berchon/weather-cloud-run/internal/business/gateway"
@@ -16,15 +17,10 @@ type GetTemperatureByZipCodeUsecase interface {
 
 type getTemperatureByZipCodeUsecase struct {
 	ViaCepService  gateway.ViaCepService
-	WeatherService WeatherService
+	WeatherService gateway.WeatherService
 }
 
-// Novo contrato p/ WeatherService
-type WeatherService interface {
-	GetWeatherByCity(ctx context.Context, city string) (*map[string]float64, *model.CustomError)
-}
-
-func NewGetTemperatureByZipCodeUsecase(viaCepService gateway.ViaCepService, weatherService WeatherService) GetTemperatureByZipCodeUsecase {
+func NewGetTemperatureByZipCodeUsecase(viaCepService gateway.ViaCepService, weatherService gateway.WeatherService) GetTemperatureByZipCodeUsecase {
 	return &getTemperatureByZipCodeUsecase{
 		ViaCepService:  viaCepService,
 		WeatherService: weatherService,
@@ -33,6 +29,7 @@ func NewGetTemperatureByZipCodeUsecase(viaCepService gateway.ViaCepService, weat
 
 func (uc *getTemperatureByZipCodeUsecase) GetTemperatureByZipCode(ctx context.Context, zipCode model.ZipCode) (*map[string]float64, *model.CustomError) {
 	city, err := uc.ViaCepService.GetAddressByZipCode(ctx, zipCode)
+	fmt.Println("Error: ", err)
 	if err != nil {
 		return nil, err
 	}
@@ -41,14 +38,29 @@ func (uc *getTemperatureByZipCodeUsecase) GetTemperatureByZipCode(ctx context.Co
 		return nil, model.NewCustomError(http.StatusInternalServerError, "city field is empty in response from via cep service")
 	}
 
-	// var city *string = new(string)
-	// *city = "Porto Alegre"
-	fmt.Println(*city)
-
-	temps, err := uc.WeatherService.GetWeatherByCity(ctx, *city)
+	celcius, err := uc.WeatherService.GetWeatherByCity(ctx, *city)
 	if err != nil {
 		return nil, err
 	}
 
-	return temps, nil
+	result := map[string]float64{
+		"temp_C": roundToDecimalPlaces(*celcius, 1),
+		"temp_F": roundToDecimalPlaces(convertCelsiusToFahrenheit(*celcius), 1),
+		"temp_K": roundToDecimalPlaces(convertCelsiusToKelvin(*celcius), 1),
+	}
+
+	return &result, nil
+}
+
+func roundToDecimalPlaces(value float64, decimalPlaces uint) float64 {
+	factor := math.Pow(10, float64(decimalPlaces))
+	return math.Round(value*factor) / factor
+}
+
+func convertCelsiusToFahrenheit(celsius float64) float64 {
+	return celsius*1.8 + 32
+}
+
+func convertCelsiusToKelvin(celsius float64) float64 {
+	return celsius + 273 // 273.15
 }

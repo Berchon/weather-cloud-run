@@ -109,9 +109,7 @@ func TestWeatherService_GetWeatherByCity(t *testing.T) {
 		result, err := svc.GetWeatherByCity(ctx, "Porto Alegre")
 		assert.Nil(t, err)
 		assert.NotNil(t, result)
-		assert.InDelta(t, 25.0, (*result)["temp_C"], 0.01)
-		assert.InDelta(t, 77.0, (*result)["temp_F"], 0.01)
-		assert.InDelta(t, 298.0, (*result)["temp_K"], 0.01)
+		assert.InDelta(t, 25.0, *result, 0.01)
 		mockClient.AssertExpectations(t)
 	})
 }

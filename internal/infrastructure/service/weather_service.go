@@ -31,7 +31,7 @@ func NewWeatherService(client config.HTTPDoer) gateway.WeatherService {
 	}
 }
 
-func (s *weatherService) GetWeatherByCity(ctx context.Context, city string) (*map[string]float64, *model.CustomError) {
+func (s *weatherService) GetWeatherByCity(ctx context.Context, city string) (*float64, *model.CustomError) {
 	ep := s.endpoint.
 		SetBaseURL(configs.GetWeatherBaseUrl()).
 		SetPath(configs.GetWeatherPath()).
@@ -83,16 +83,5 @@ func (s *weatherService) GetWeatherByCity(ctx context.Context, city string) (*ma
 			fmt.Sprintf("error unmarshalling response: %v", err))
 	}
 
-	// conversões
-	tempC := weatherDto.Current.TempC
-	tempF := tempC*1.8 + 32
-	tempK := tempC + 273
-
-	result := map[string]float64{
-		"temp_C": tempC,
-		"temp_F": tempF,
-		"temp_K": tempK,
-	}
-
-	return &result, nil
+	return &weatherDto.Current.TempC, nil
 }

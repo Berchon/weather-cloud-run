@@ -53,15 +53,19 @@ func TestGetTemperatureByZipCodeHandler_HTTP(t *testing.T) {
 		assert.Contains(t, body, `{"status_code":422,"message":"something went wrong"}`)
 	})
 
-	// t.Run("should return 200 when usecase succeeds", func(t *testing.T) {
-	// 	zipCode := "12345678"
-	// 	temp := "25.3°C"
-	// 	mockUsecase.On("GetTemperatureByZipCode", mock.Anything, model.ZipCode(zipCode)).
-	// 		Return(&temp, nil).
-	// 		Once()
+	t.Run("should return 200 when usecase succeeds", func(t *testing.T) {
+		zipCode := "12345678"
+		result := map[string]float64{
+			"temp_C": 21.2,
+			"temp_F": 70.2,
+			"temp_K": 294.2,
+		}
+		mockUsecase.On("GetTemperatureByZipCode", mock.Anything, model.ZipCode(zipCode)).
+			Return(&result, nil).
+			Once()
 
-	// 	status, body := getResponse(t, server.URL+"/temperature/"+zipCode)
-	// 	assert.Equal(t, http.StatusOK, status)
-	// 	assert.JSONEq(t, body, `"25.3°C"`)
-	// })
+		status, body := getResponse(t, server.URL+"/temperature/"+zipCode)
+		assert.Equal(t, http.StatusOK, status)
+		assert.JSONEq(t, `{"temp_C":21.2,"temp_F":70.2,"temp_K":294.2}`, body)
+	})
 }
