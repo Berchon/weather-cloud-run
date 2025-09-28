@@ -64,6 +64,11 @@ func (e *Endpoint) AddQueryParam(key, value string) *Endpoint {
 		return e
 	}
 
+	if key == "" || value == "" {
+		e.err = errors.New("key and value must be non-empty for query parameters")
+		return e
+	}
+
 	e.query.Set(key, value)
 	return e
 }

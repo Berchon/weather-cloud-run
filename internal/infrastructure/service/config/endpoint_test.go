@@ -134,3 +134,39 @@ func TestEndpoint_Build(t *testing.T) {
 		assert.Equal(t, "http://example.com/path2", url)
 	})
 }
+
+func TestAddQueryParam_EmptyKeyOrValue(t *testing.T) {
+	base := "http://localhost"
+
+	t.Run("should return error if key is empty", func(t *testing.T) {
+		ep := NewEndpoint().SetBaseURL(base)
+		ep = ep.AddQueryParam("", "value")
+		_, err := ep.Build()
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "key and value must be non-empty")
+	})
+
+	t.Run("should return error if value is empty", func(t *testing.T) {
+		ep := NewEndpoint().SetBaseURL(base)
+		ep = ep.AddQueryParam("key", "")
+		_, err := ep.Build()
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "key and value must be non-empty")
+	})
+
+	t.Run("should return error if both key and value are empty", func(t *testing.T) {
+		ep := NewEndpoint().SetBaseURL(base)
+		ep = ep.AddQueryParam("", "")
+		_, err := ep.Build()
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "key and value must be non-empty")
+	})
+
+	t.Run("should not return error if key and value are non-empty", func(t *testing.T) {
+		ep := NewEndpoint().SetBaseURL(base)
+		ep = ep.AddQueryParam("key", "value")
+		url, err := ep.Build()
+		assert.NoError(t, err)
+		assert.Contains(t, url, "key=value")
+	})
+}
