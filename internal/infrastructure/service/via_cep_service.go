@@ -15,21 +15,6 @@ import (
 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/service/dto"
 )
 
-// import (
-// 	"context"
-// 	"encoding/json"
-// 	"fmt"
-// 	"io"
-// 	"net/http"
-// 	"time"
-
-// 	"github.com/Berchon/weather-cloud-run/internal/business/gateway"
-// 	"github.com/Berchon/weather-cloud-run/internal/business/model"
-// 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/configs"
-// 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/service/config"
-// 	"github.com/Berchon/weather-cloud-run/internal/infrastructure/service/dto"
-// )
-
 type viaCepService struct {
 	endpoint *config.Endpoint
 	client   config.HTTPDoer

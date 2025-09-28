@@ -23,7 +23,6 @@ func setupTestServer(t *testing.T, mockUsecase *usecaseMock.MockGetTemperatureBy
 	return server
 }
 
-// helper para fazer GET e ler body
 func getResponse(t *testing.T, url string) (int, string) {
 	resp, err := http.Get(url)
 	assert.NoError(t, err)

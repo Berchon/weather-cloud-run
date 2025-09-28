@@ -65,7 +65,6 @@ func (s *weatherService) GetWeatherByCity(ctx context.Context, city string) (*fl
 			fmt.Sprintf("error reading response: %v", err))
 	}
 
-	// tratamento de erro da WeatherAPI
 	if resp.StatusCode != http.StatusOK {
 		var apiErr dto.WeatherErrorDto
 		if err := json.Unmarshal(body, &apiErr); err == nil && apiErr.Error.Message != "" {
@@ -76,7 +75,6 @@ func (s *weatherService) GetWeatherByCity(ctx context.Context, city string) (*fl
 			fmt.Sprintf("unexpected error from weather api: %s", string(body)))
 	}
 
-	// sucesso → parse da resposta
 	var weatherDto dto.WeatherDto
 	if err := json.Unmarshal(body, &weatherDto); err != nil {
 		return nil, model.NewCustomError(http.StatusInternalServerError,

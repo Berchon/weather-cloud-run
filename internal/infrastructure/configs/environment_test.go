@@ -80,7 +80,7 @@ func Test_RefreshConfig(t *testing.T) {
 		err := RefreshConfig()
 		assert.NoError(t, err)
 
-		assert.Equal(t, "8080", GetWebServerPort()) // default value
+		assert.Equal(t, "8080", GetWebServerPort())
 		assert.Equal(t, "https://viacep.com.br", GetViaCepBaseUrl())
 		assert.Equal(t, "/ws/%s/json", GetViaCepPath())
 		assert.Equal(t, "https://api.weatherapi.com", GetWeatherBaseUrl())

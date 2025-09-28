@@ -6,7 +6,6 @@ import (
 	"net/url"
 )
 
-// Endpoint é um builder seguro para criar URLs com base, path e query params
 type Endpoint struct {
 	baseURL string
 	path    string
@@ -14,12 +13,10 @@ type Endpoint struct {
 	err     error
 }
 
-// NewEndpoint cria um endpoint vazio
 func NewEndpoint() *Endpoint {
 	return &Endpoint{query: url.Values{}}
 }
 
-// SetBaseURL define a base URL já formatada (ex: "http://host")
 func (e *Endpoint) SetBaseURL(baseURL string) *Endpoint {
 	if e.err != nil {
 		return e
@@ -38,7 +35,6 @@ func (e *Endpoint) SetBaseURL(baseURL string) *Endpoint {
 	return e
 }
 
-// SetPath define o path já formatado (ex: "/api/123/abc")
 func (e *Endpoint) SetPath(path string) *Endpoint {
 	if e.err != nil {
 		return e
@@ -53,7 +49,6 @@ func (e *Endpoint) SetPath(path string) *Endpoint {
 	return e
 }
 
-// AddQueryParam adiciona query parameter, sobrescrevendo se já existir
 func (e *Endpoint) AddQueryParam(key, value string) *Endpoint {
 	if e.err != nil {
 		return e
@@ -73,7 +68,6 @@ func (e *Endpoint) AddQueryParam(key, value string) *Endpoint {
 	return e
 }
 
-// GetUrl retorna a URL atual e erro acumulado
 func (e *Endpoint) GetUrl() (string, error) {
 	if e.err != nil {
 		return "", e.err
@@ -99,7 +93,6 @@ func (e *Endpoint) GetUrl() (string, error) {
 	return u.String(), nil
 }
 
-// Build retorna a URL final e erro acumulado (idêntico ao GetUrl, serve como finalizador)
 func (e *Endpoint) Build() (string, error) {
 	return e.GetUrl()
 }

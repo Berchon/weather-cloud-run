@@ -1,3 +1,5 @@
 # Arquivos ignorados na cobertura de código
 **/mock/*
 cmd/webserver/main.go
+internal/infrastructure/webapp/webapp.go
+internal/infrastructure/webapp/route/route.go
