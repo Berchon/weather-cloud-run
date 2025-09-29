@@ -31,8 +31,5 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 # Expose the default Cloud Run port
 EXPOSE 8080
 
-# Use a non-root user to run the application for better security
-USER nonroot:nonroot
-
 # Run the binary
 ENTRYPOINT ["./server"]

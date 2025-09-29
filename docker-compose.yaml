@@ -1,11 +1,10 @@
-version: "3.9"
-
 services:
   weather-cloud-run:
     container_name: weather-cloud-run
     build:
       context: .
       dockerfile: Dockerfile
+    image: weather-cloud-run:latest
     env_file:
       - ./.env
     ports:

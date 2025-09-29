@@ -23,7 +23,7 @@ clear: ## Clear up coverage files
 	rm -f $(COVERAGE_FILE) $(COVERAGE_HTML)
 
 ## ----- DOCKER
-.PHONY: build status logs up down stop clean
+.PHONY: build status logs run up down stop clean
 build: ## Build docker image
 	docker compose build
 
@@ -32,6 +32,9 @@ status: ## Get status of containers
 
 logs: ## Get logs of containers
 	docker compose logs --follow
+
+run: ## Run the docker image locally
+	docker run -p 8080:8080 --env-file .env weather-cloud-run:latest
 
 up: build ## Build and start docker containers
 	docker compose up -d
