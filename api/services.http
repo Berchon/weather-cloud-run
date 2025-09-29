@@ -1,0 +1,42 @@
+# Weatherapi
+@apiKey = 
+@cidade = Porto Alegre
+
+#http.StatusOK
+@zipCodeOK1 = 90040000
+@zipCodeOK2 = 90040-000
+
+#404 Not Found
+#http.StatusNotFound
+@zipCodeNotFound = 90040999
+
+#422 UnprocessableEntity
+#http.StatusUnprocessableEntity
+@zipCodeInvalid = 000000000x
+
+### GET ViaCEP OK
+GET http://viacep.com.br/ws/{{zipCodeOK1}}/json/ HTTP/1.1
+
+### GET ViaCEP OK
+GET http://viacep.com.br/ws/{{zipCodeOK2}}/json/ HTTP/1.1
+
+### GET ViaCEP Not Found
+GET http://viacep.com.br/ws/{{zipCodeNotFound}}/json/ HTTP/1.1
+
+### GET ViaCEP Bad Request
+GET http://viacep.com.br/ws/{{zipCodeInvalid}}/json/ HTTP/1.1
+
+### GET Wheater API
+GET http://api.weatherapi.com/v1/current.json?key={{apiKey}}&q={{cidade}}&aqi=no
+
+### GET Wheater API with invalid key
+GET http://api.weatherapi.com/v1/current.json?key=12345&q={{cidade}}&aqi=no
+
+### GET Wheater API with invalid city
+GET http://api.weatherapi.com/v1/current.json?key={{apiKey}}&q=aaaa&aqi=no
+
+### GET Wheater API without path parameters
+GET http://api.weatherapi.com/v1/current.json
+
+### GET Wheater API without path parameters
+GET https://api.weatherapi.com/v1/current.json?key=&q=Caçapava do Sul&aqi=no

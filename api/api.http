@@ -1,0 +1,29 @@
+@base_url = https://weather-cloud-run-kvktzkxdya-uc.a.run.app
+# @base_url = http://localhost:8080
+
+### GET ViaCEP OK
+GET {{base_url}}/status HTTP/1.1
+
+###
+POST {{base_url}}/reload HTTP/1.1
+
+### 200
+GET {{base_url}}/temperature/90040-000 HTTP/1.1
+
+### 200
+GET {{base_url}}/temperature/96570000 HTTP/1.1
+
+### 404 Not Found
+GET {{base_url}}/temperature/90040999 HTTP/1.1
+
+### 422
+GET {{base_url}}/temperature/1234567 HTTP/1.1
+
+### 422
+GET {{base_url}}/temperature/123-45678 HTTP/1.1
+
+### 422
+GET {{base_url}}/temperature/a HTTP/1.1
+
+### 404 Page not found
+GET {{base_url}}/temperature/ HTTP/1.1
