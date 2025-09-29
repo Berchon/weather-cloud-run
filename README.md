@@ -130,7 +130,7 @@ make build
 #### Subir container:
 
 ```bash
-docker run -p 8080:8080 --env-file .env weather-cloud-run
+make run
 ```
 
 ### 4. Rodar com Docker Compose
