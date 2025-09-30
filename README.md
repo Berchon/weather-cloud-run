@@ -149,16 +149,43 @@ make down
 
 > ℹ️ make up usa docker-compose para subir a aplicação, tornando o passo mais simples para desenvolvimento local.
 
-## 🧪 Testes
+## 🧪 Testes de unidade
 
-Para rodar os testes automatizados:
+Para rodar os testes de unidade:
 
 ```bash
 make test
 ```
 
 O projeto inclui **tests unitários** e **mocking** para simular chamadas externas.
-Também é possível testar endpoints manualmente via `api/api.http` e `api/services.http` usando REST Client no VSCode.
+
+## ▶️ Executar  a aplicação
+
+### Executar localmente
+
+```bash
+make run
+
+echo -n "Retorna http status code 200: "; curl -s "http://localhost:8080/temperature/90040-000"
+
+echo -n "Retorna http status code 404: "; curl -s "http://localhost:8080/temperature/90040999"
+
+echo -n "Retorna http status code 422: "; curl -s "http://localhost:8080/temperature/1234567"
+```
+
+### Executar no google cloud run
+
+```bash
+echo -n "Retorna http status code 200: "; curl -s "https://weather-cloud-run-kvktzkxdya-uc.a.run.app/temperature/90040-000"
+
+echo -n "Retorna http status code 404: "; curl -s "https://weather-cloud-run-kvktzkxdya-uc.a.run.app/temperature/90040999"
+
+echo -n "Retorna http status code 422: "; curl -s "https://weather-cloud-run-kvktzkxdya-uc.a.run.app/temperature/1234567"
+```
+
+#### Nota
+
+> Também é possível testar endpoints manualmente via `api/api.http` e `api/services.http` usando REST Client no VSCode.
 
 ## 🔑 Tecnologias e APIs utilizadas
 
