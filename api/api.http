@@ -1,4 +1,5 @@
-@base_url = https://weather-cloud-run-kvktzkxdya-uc.a.run.app
+# @base_url = https://weather-cloud-run-kvktzkxdya-uc.a.run.app
+@base_url = https://weather-cloud-run-609455530745.southamerica-east1.run.app
 # @base_url = http://localhost:8080
 
 ### GET ViaCEP OK

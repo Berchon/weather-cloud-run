@@ -7,7 +7,7 @@
 Aplicação desenvolvida em **Go** para consulta de clima a partir de um **CEP válido**, retornando a temperatura atual em **Celsius, Fahrenheit e Kelvin**.  
 O sistema está disponível no **Google Cloud Run**:  
 
-👉 [Acessar aplicação online](https://weather-cloud-run-kvktzkxdya-uc.a.run.app)
+👉 [Acessar aplicação online](https://weather-cloud-run-609455530745.southamerica-east1.run.app)
 
 ## 📌 Objetivo do projeto
 
@@ -176,11 +176,11 @@ echo -n "Retorna http status code 422: "; curl -s "http://localhost:8080/tempera
 ### Executar no google cloud run
 
 ```bash
-echo -n "Retorna http status code 200: "; curl -s "https://weather-cloud-run-kvktzkxdya-uc.a.run.app/temperature/90040-000"
+echo -n "Retorna http status code 200: "; curl -s "https://weather-cloud-run-609455530745.southamerica-east1.run.app/temperature/90040-000"
 
-echo -n "Retorna http status code 404: "; curl -s "https://weather-cloud-run-kvktzkxdya-uc.a.run.app/temperature/90040999"
+echo -n "Retorna http status code 404: "; curl -s "https://weather-cloud-run-609455530745.southamerica-east1.run.app/temperature/90040999"
 
-echo -n "Retorna http status code 422: "; curl -s "https://weather-cloud-run-kvktzkxdya-uc.a.run.app/temperature/1234567"
+echo -n "Retorna http status code 422: "; curl -s "https://weather-cloud-run-609455530745.southamerica-east1.run.app/temperature/1234567"
 ```
 
 #### Nota
@@ -199,7 +199,7 @@ echo -n "Retorna http status code 422: "; curl -s "https://weather-cloud-run-kvk
 
 Aplicação publicada no **Google Cloud Run** (Free Tier):
 
-👉 https://weather-cloud-run-kvktzkxdya-uc.a.run.app
+👉 https://weather-cloud-run-609455530745.southamerica-east1.run.app
 
 ## 📂 Estrutura do projeto
 
